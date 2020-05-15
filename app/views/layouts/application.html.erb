@@ -11,10 +11,7 @@
 
   <body>
     <div class="container">
-      <%= render 'layouts/search_bar' %>
-      <% if flash[:alert] %>
-        <div class="alert alert-warning"><%= flash[:alert] %></div>
-      <% end %>
+      <%= render 'layouts/country_select' %>
       <%= yield %>
     </div>
   </body>

@@ -1,14 +1,16 @@
 class CovidController < ApplicationController
+  before_action :index_countries
+
   def search
-    countries = find_country(params[:country])
-    unless countries
-      flash[:alert] = 'Country not found'
-      return render action: :index
-    end
-    @country = countries.first
+    countries = find_country()
+    @country = countries&.first
   end
 
 private
+  def index_countries
+    all_countries = list_countries
+    @countries = all_countries.collect { |country| country["name"] }
+  end
 
   def request_api(url)
     response = Excon.get(
@@ -28,9 +30,9 @@ private
     )
   end
 
-  def find_country(name)
+  def find_country()
     request_api(
-      "https://covid-19-data.p.rapidapi.com/country?format=json&name=#{(name)}"
+      "https://covid-19-data.p.rapidapi.com/country?format=json&name=#{URI.encode(params[:country])}"
     )
   end
 end

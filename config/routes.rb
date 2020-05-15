@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'covid#search'
-  get '/search' => 'covid#search' 
+  root to: 'covid#index_countries'
+  get '/search' => 'covid#search'
+  get '/countries' => 'covid#index_countries' 
 end

@@ -6,10 +6,14 @@
       <li class="list-group-item">Recovered: <%= number_with_delimiter(@country["recovered"], :delimiter => ",") %></li>
       <li class="list-group-item">Critical: <%= number_with_delimiter(@country["critical"], :delimiter => ",") %></li>
       <li class="list-group-item">Deaths: <%= number_with_delimiter(@country["deaths"], :dlimiter => ",") %></li>
-      <li class="list-group-item">Last updated <%= time_ago_in_words(DateTime.parse(@country["lastUpdate"])) %> ago.</li>
+      <% if @country["lastUpdate"] %>
+        <li class="list-group-item">Last updated <%= time_ago_in_words(DateTime.parse(@country["lastUpdate"])) %> ago.</li>
+      <% else %>
+        <li class="list-group-item">Data not collected by this country.</li>
+      <% end %>
     </ul>
   <% else %>
-    <p>No Results</p>
+    <div class="alert alert-warning"><%= flash[:alert] %></div>
   <% end %>
 </div>
 
