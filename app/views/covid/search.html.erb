@@ -1,17 +1,20 @@
 <div class="card col-lg-12" style="width: 400px;">
   <% if @country %>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><%= @country["country"] %></li>
-      <li class="list-group-item">Confirmed: <%= number_with_delimiter(@country["confirmed"], :delimiter => ",") %></li>
-      <li class="list-group-item">Recovered: <%= number_with_delimiter(@country["recovered"], :delimiter => ",") %></li>
-      <li class="list-group-item">Critical: <%= number_with_delimiter(@country["critical"], :delimiter => ",") %></li>
-      <li class="list-group-item">Deaths: <%= number_with_delimiter(@country["deaths"], :dlimiter => ",") %></li>
-      <% if @country["lastUpdate"] %>
-        <li class="list-group-item">Last updated <%= time_ago_in_words(DateTime.parse(@country["lastUpdate"])) %> ago.</li>
-      <% else %>
-        <li class="list-group-item">Data not collected by this country.</li>
-      <% end %>
-    </ul>
+  <div class="card-header">
+    <h3 id="country-name"><%= @country["country"] %></h3>
+    <hr />
+  </div>
+  <div class="card-body">
+    <p><strong>Confirmed:</strong> <%= number_with_delimiter(@country["confirmed"]) %></p>
+    <p><strong>Recovered:</strong> <%= number_with_delimiter(@country["recovered"]) %></p>
+    <p><strong>Critical:</strong> <%= number_with_delimiter(@country["critical"]) %></p>
+    <p><strong>Deaths:</strong> <%= number_with_delimiter(@country["deaths"]) %></p>
+    <% if @country["lastUpdate"]%>
+     <p id="updated-time">Updated <%= time_ago_in_words(@country["lastUpdate"]) %> ago.</p>
+    <% else %>
+    <p id="updated-time">Data not reported by country.</p>
+    <% end %>
+  </div>
   <% else %>
     <div class="alert alert-warning"><%= flash[:alert] %></div>
   <% end %>

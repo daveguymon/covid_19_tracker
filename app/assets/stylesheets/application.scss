@@ -12,3 +12,25 @@
 .search-bar {
   margin: 25px 0px 25px 0px;
 }
+
+.card {
+  border: 1px black solid;
+  border-radius: 5px;
+  height: 250px;
+  box-shadow: 10px 10px 14px -6px rgba(184,184,184,1);
+
+  .card-header {
+    height: 65px;
+    width: 100%;
+    margin-bottom: 15px;
+
+    #country-name {
+      margin-top: 15px;
+    }
+  }
+
+
+  #updated-time {
+    text-align: right;
+  }
+}
