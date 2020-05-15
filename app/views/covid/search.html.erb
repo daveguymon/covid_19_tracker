@@ -1,30 +1,15 @@
-<div class="container">
-  <div class="row mt-5">
-    <div class="col-lg-6">
-      <h1>Country Info</h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Country</th>
-            <th scope="col">Confirmed</th>
-            <th scope="col">Recovered</th>
-            <th scope="col">Critical</th>
-            <th scope="col">Deaths</th>
-            <th scope="col">Updated</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td scope="row"><%= @country["country"] %></td>
-            <td scope="row"><%= @country["confirmed"] %></td>
-            <td scope="row"><%= @country["recovered"] %></td>
-            <td scope="row"><%= @country["critical"] %></td>
-            <td scope="row"><%= @country["deaths"] %></td>
-            <td scope="row"><%= DateTime.parse(@country["lastUpdate"]).strftime('%b %d %Y') %></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="card col-lg-12" style="width: 400px;">
+  <% if @country %>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%= @country["country"] %></li>
+      <li class="list-group-item">Confirmed: <%= number_with_delimiter(@country["confirmed"], :delimiter => ",") %></li>
+      <li class="list-group-item">Recovered: <%= number_with_delimiter(@country["recovered"], :delimiter => ",") %></li>
+      <li class="list-group-item">Critical: <%= number_with_delimiter(@country["critical"], :delimiter => ",") %></li>
+      <li class="list-group-item">Deaths: <%= number_with_delimiter(@country["deaths"], :dlimiter => ",") %></li>
+      <li class="list-group-item">Last updated <%= time_ago_in_words(DateTime.parse(@country["lastUpdate"])) %> ago.</li>
+    </ul>
+  <% else %>
+    <p>No Results</p>
+  <% end %>
 </div>
 

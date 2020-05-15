@@ -1,7 +1,4 @@
 class CovidController < ApplicationController
-  def index
-  end
-
   def search
     countries = find_country(params[:country])
     unless countries
