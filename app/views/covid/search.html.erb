@@ -1,22 +1,31 @@
-<div class="card col-lg-12" style="width: 400px;">
-  <% if @country %>
-  <div class="card-header">
-    <h3 id="country-name"><%= @country["country"] %></h3>
-    <hr />
-  </div>
-  <div class="card-body">
-    <p><strong>Confirmed:</strong> <%= number_with_delimiter(@country["confirmed"]) %></p>
-    <p><strong>Recovered:</strong> <%= number_with_delimiter(@country["recovered"]) %></p>
-    <p><strong>Critical:</strong> <%= number_with_delimiter(@country["critical"]) %></p>
-    <p><strong>Deaths:</strong> <%= number_with_delimiter(@country["deaths"]) %></p>
-    <% if @country["lastUpdate"]%>
-     <p id="updated-time">Updated <%= time_ago_in_words(@country["lastUpdate"]) %> ago.</p>
+<div class="card-container">
+  <div class="card col-lg-12" style="width: 400px;">
+    <% if @country %>
+    <div class="card-header">
+      <h3 id="country-name"><%= @country["country"] %></h3>
+      <hr />
+    </div>
+    <div class="card-body">
+      <p><strong>Confirmed:</strong> <%= number_with_delimiter(@country["confirmed"]) %></p>
+      <p><strong>Recovered:</strong> <%= number_with_delimiter(@country["recovered"]) %></p>
+      <p><strong>Critical:</strong> <%= number_with_delimiter(@country["critical"]) %></p>
+      <p><strong>Deaths:</strong> <%= number_with_delimiter(@country["deaths"]) %></p>
+      <% if @country["lastUpdate"]%>
+      <p id="updated-time">Updated <%= time_ago_in_words(@country["lastUpdate"]) %> ago.</p>
+      <% else %>
+      <p id="updated-time">Data not reported by country.</p>
+      <% end %>
+    </div>
     <% else %>
-    <p id="updated-time">Data not reported by country.</p>
+      <div class="alert alert-warning"><%= flash[:alert] %></div>
     <% end %>
   </div>
-  <% else %>
-    <div class="alert alert-warning"><%= flash[:alert] %></div>
-  <% end %>
-</div>
+    <% full_loc = "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLEMAPS_API_KEY']}&q=#{@country["latitude"]},#{@country["longitude"]}&zoom=3" %>
 
+    <iframe
+      height="300"
+      width="400"
+      frameborder="0" style="border:0"
+      src="<%= full_loc %>" allowfullscreen>
+    </iframe>
+</div>
